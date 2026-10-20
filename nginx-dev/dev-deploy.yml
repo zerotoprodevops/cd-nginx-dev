@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+
+kind:  Deployment
+
+metadata:
+  name: dev-deploy
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+      type: frontend
+
+  template:
+    metadata:
+      name: dev-web-App
+      labels:
+        app: webapp
+        type: frontend
+    spec:
+      containers:
+         - name: dev-nginx
+           image: nginx:latest
+           ports:
+             - containerPort: 80
+           volumeMounts:
+             - name: site-config-01
+               mountPath: /etc/nginx/conf.d/mjs.conf
+               subPath: mjs.conf
+
+             - name: site-index-page
+               mountPath: /usr/share/nginx/html/index.html
+               subPath: index.html     
+
+               
+      volumes:
+       - name: site-config-01
+         configMap:
+           name: dev-vhost-config
+       - name: site-index-page
+         configMap:
+           name: dev-index-page    

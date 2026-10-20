@@ -1,0 +1,27 @@
+apiVersion: v1
+data:
+  mjs.conf: |
+    # ── Main server block ──
+    server {
+        listen 80;
+        listen [::]:80;
+
+        server_name mjs.com;
+        root /usr/share/nginx/html;  # Fixed to point to the Docker default folder
+        index index.html;
+
+        # ── Custom error pages ──
+        error_page 404 /404.html;
+
+        # ── Serve static files ──
+        location / {
+            try_files $uri $uri/ =404;
+        }
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2026-10-19T08:08:05Z"
+  name: dev-vhost-config
+  namespace: default
+  resourceVersion: "204857"
+  uid: b57896fe-a426-46d3-b456-c33b971be168
