@@ -20,8 +20,6 @@ data:
     }
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2026-10-19T08:08:05Z"
   name: dev-vhost-config
   namespace: default
-  resourceVersion: "204857"
-  uid: b57896fe-a426-46d3-b456-c33b971be168
+  
